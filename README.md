@@ -1,7 +1,7 @@
 Flask-Redis
 ===========
 
-Adds Redis Support to Flask. Dead Simple.
+Add Redis Support to Flask.
 
 Built on top of redis-py
 
@@ -36,7 +36,9 @@ alias easy_install="pip install $1"
 easy_install flask-redis
 ```
 
-## Usage
+## Configuration
+
+**ToDo** Add Settings
 
 ```
 from flask import Flask
@@ -60,7 +62,7 @@ def create_app():
     return app
 ```
 
-Next, usage is as simple as the following:
+## Usage
 
 ```
 from core import redis_store
