@@ -3,6 +3,8 @@ Flask-Redis
 
 Adds Redis Support to Flask. Dead Simple.
 
+Built on top of redis-py
+
 Currently a single namespace within the configuration is supported. 
 
 ```
@@ -41,7 +43,7 @@ from flask import Flask
 from flask_redis import Redis
 
 app = Flask(__name__)
-redis = Redis(app)
+redis_store = Redis(app)
 ```
 
 or
@@ -50,10 +52,28 @@ or
 from flask import Flask
 from flask_redis import Redis
 
-redis = Redis()
+redis_store = Redis()
 
 def create_app():
     app = Flask(__name__)
     redis.init_app(app)
     return app
 ```
+
+Next, usage is as simple as the following:
+
+```
+from core import redis_store
+
+
+@app.route('/')
+def index():
+    return redis_store.get('potato','Not Set')
+```
+
+**Protip:** The [redis-py](https://github.com/andymccurdy/redis-py) package currently holds the 'redis' namespace, 
+so if you are looking to make use of it, your Redis object shouldn't be named 'redis'.
+
+For detailed instructions regarding the usage of the client, check the [redis-py](https://github.com/andymccurdy/redis-py) documentation.
+
+Advanced features, such as Lua scripting, pipelines and callbacks are detailed within the projects README. 
