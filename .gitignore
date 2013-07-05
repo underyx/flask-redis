@@ -35,5 +35,6 @@ nosetests.xml
 .pydevproject
 celerybeat-schedule
 .env
-.DS_Store.workon
+.DS_Store
 .workon
+.cache
