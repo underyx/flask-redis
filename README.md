@@ -67,7 +67,6 @@ def create_app():
 ```
 from core import redis_store
 
-
 @app.route('/')
 def index():
     return redis_store.get('potato','Not Set')
