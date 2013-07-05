@@ -5,61 +5,91 @@ from werkzeug.utils import import_string
 
 __all__ = ('Redis',)
 
+
 class Redis(object):
 
-    def __init__(self, app=None, config_prefix=None):
+    converters = {'port': int}
 
+    def __init__(self, app=None, config_prefix=None):
+        """
+        Constructor for non-factory Flask applications
+        """
         if app is not None:
             self.init_app(app)
 
-    def init_app(self, app):
+    def _convert(self, arg, val):
+        """
+        Apply a conversion method to specific arguments i.e. ports
+        """
+        return self.converters[arg](val) if arg in self.converters else val
 
-        app.config.setdefault('REDIS_URL','redis://localhost/0')
+    def _get_connection_class_args(self, c):
+        """
+        Returns the args that are expected by the Redis class
+        """
+        return ([a.upper() for a in inspect.getargspec(c.__init__).args
+                if a != 'self'])
 
-        converters = {'port': int}
-        convert = lambda arg, value: (converters[arg](value)
-                                      if arg in converters
-                                      else value)
-        key = lambda suffix: 'REDIS_{0}'.format(suffix)
-
-        klass = app.config.get(key('CLASS'), RedisClass)
-
-        if isinstance(klass, basestring):
-            klass = import_string(klass)
-
-        url = app.config.get(key('URL'))
-
+    def _parse_configuration(self, url=None):
+        """
+        Parse the configuration attached to our application. We provide
+        URL as a default, and other set values (including URL) will override
+        the defaults that are parsed.
+        """
         if url:
             urlparse.uses_netloc.append('redis')
             url = urlparse.urlparse(url)
 
-            app.config[key('HOST')] = url.hostname
-            app.config[key('PORT')] = url.port or 6379
-            app.config[key('USER')] = url.username
-            app.config[key('PASSWORD')] = url.password
+            self.app.config[self.key('HOST')] = url.hostname
+            self.app.config[self.key('PORT')] = url.port or 6379
+            self.app.config[self.key('USER')] = url.username
+            self.app.config[self.key('PASSWORD')] = url.password
             db = url.path.replace('/', '')
-            app.config[key('DB')] = db if db.isdigit() else 0
+            self.app.config[self.key('DB')] = db if db.isdigit() else 0
 
-        host = app.config[key('HOST')]
+        host = self.app.config.get(self.key('HOST'), '')
 
         if host.startswith('file://') or host.startswith('/'):
-            app.config.pop(key('HOST'))
-            app.config[key('UNIX_SOCKET_PATH')] = host
+            self.app.config.pop(key('HOST'))
+            self.app.config[key('UNIX_SOCKET_PATH')] = host
 
-        args = inspect.getargspec(klass.__init__).args
-        args.remove('self')
-
-        kwargs = dict([(arg, convert(arg, app.config[key(arg.upper())]))
-                       for arg in args
-                       if key(arg.upper()) in app.config])
-
-        self.connection = connection = klass(**kwargs)
-
-        self._include_public_methods(connection)
-
-    def _include_public_methods(self, connection):
+    def _generate_connection_kwargs(self, args):
         """
-        Include public methods from connection instance to current instance.
+        Generates the kwargs for the Redis class
+        """
+
+        def value(arg):
+            """
+            Returns the value of the argument from the application config
+            """
+            return self._convert(arg, self.app.config[self.key(arg)])
+
+        args = [arg for arg in args if self.key(arg) in self.app.config]
+        return dict([(arg.lower(), value(arg)) for arg in args])
+
+    def init_app(self, app):
+        """
+        Apply the Flask app configuration to a Redis object
+        """
+        self.app = app
+        self.app.config.setdefault('REDIS_URL', 'redis://localhost/0')
+
+        self.key = lambda suffix: 'REDIS_{0}'.format(suffix)
+
+        klass = app.config.get(self.key('CLASS'), RedisClass)
+
+        if isinstance(klass, basestring):
+            klass = import_string(klass)
+
+        self._parse_configuration(self.app.config.get(self.key('URL')))
+        args = self._get_connection_class_args(klass)
+        kwargs = self._generate_connection_kwargs(args)
+        self.connection = connection = klass(**kwargs)
+        self._include_connection_methods(connection)
+
+    def _include_connection_methods(self, connection):
+        """
+        Include methods from connection instance to current instance.
         """
         for attr in dir(connection):
             value = getattr(connection, attr)
