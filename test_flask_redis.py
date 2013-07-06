@@ -18,4 +18,4 @@ class FlaskRedisTestCase(unittest.TestCase):
     def test_init_app(self):
         """ Test the initation of our Redis extension """
         self.redis.init_app(self.app)
-        assert self.redis.get('test') is None
+        assert self.redis.get('potato') is None
