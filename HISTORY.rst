@@ -1,6 +1,14 @@
 History
 =======
 
+0.0.2 (6/7/2013)
+----------------
+
+- Implemented a very simple test.
+- Fixed some documentation issues.
+- Included requirements.txt for testing.
+- Included task file including some basic methods for tests.
+
 0.0.1 (5/7/2013)
 ----------------
 

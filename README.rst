@@ -41,8 +41,6 @@ Or if you *must* use easy_install:
 Configuration
 -------------
 
-**ToDo** Add Settings
-
 .. code-block:: pycon
 
     from flask import Flask
