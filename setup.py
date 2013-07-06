@@ -15,7 +15,7 @@ if sys.argv[-1] == 'publish':
 
 setup(
     name='Flask-Redis',
-    version='0.0.1',
+    version='0.0.2',
     url='http://github.com/rhyselsmore/flask-redis',
     author='Rhys Elsmore',
     author_email='me@rhys.io',
