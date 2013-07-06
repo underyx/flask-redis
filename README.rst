@@ -7,15 +7,15 @@ Built on top of `redis-py <https://github.com/andymccurdy/redis-py>`_.
 
 Currently a single namespace within the configuration is supported.
 
-.. code-block:: pycon
+.. code-block:: python
 
     REDIS_URL="redis://localhost"
 
-with the Redis instance automatically loading variables from this namespace.
+with the Redis instance automatically loading config from this namespace.
 
 In the future, the ability to declare multiple Redis namespaces will be available
 
-.. code-block:: pycon
+.. code-block:: python
 
     REDIS_CACHE_URL="redis://localhost/0"
     REDIS_METRICS_URL="redis://localhost/0"
@@ -41,7 +41,23 @@ Or if you *must* use easy_install:
 Configuration
 -------------
 
-.. code-block:: pycon
+Your configuration should be declared within your Flask config. You can declare
+via a Redis URL
+
+.. code-block:: python
+
+    REDIS_URL = "redis://:password@localhost:6379/0"
+
+or you are able to declare the following
+
+.. code-block:: python
+
+    REDIS_HOST = "localhost"
+    REDIS_PASSWORD = "password"
+    REDIS_PORT = 6379
+    REDIS_DATABASE = 5
+
+.. code-block:: python
 
     from flask import Flask
     from flask_redis import Redis
@@ -51,7 +67,7 @@ Configuration
 
 or
 
-.. code-block:: pycon
+.. code-block:: python
 
     from flask import Flask
     from flask_redis import Redis
@@ -66,7 +82,7 @@ or
 Usage
 -----
 
-.. code-block:: pycon
+.. code-block:: python
 
     from core import redis_store
 
