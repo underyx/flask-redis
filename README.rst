@@ -1,6 +1,13 @@
 Flask-Redis
 ===========
 
+
+.. image:: https://travis-ci.org/rhyselsmore/flask-redis.png?branch=master
+        :target: https://travis-ci.org/rhyselsmore/flask-redis
+
+.. image:: https://pypip.in/d/flask-redis/badge.png
+        :target: https://crate.io/packages/flask-redis/
+
 Add Redis Support to Flask.
 
 Built on top of `redis-py <https://github.com/andymccurdy/redis-py>`_.
