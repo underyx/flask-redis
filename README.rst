@@ -57,6 +57,8 @@ or you are able to declare the following
     REDIS_PORT = 6379
     REDIS_DATABASE = 5
 
+To create the redis instance within your application
+
 .. code-block:: python
 
     from flask import Flask
