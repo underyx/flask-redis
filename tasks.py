@@ -19,3 +19,8 @@ def pep8():
 @task
 def full():
     run('py.test --pep8 --cov=flask_redis test_flask_redis.py', pty=True)
+
+
+@task
+def travisci():
+    run('py.test --pep8 test_flask_redis.py')

@@ -1,0 +1,16 @@
+language: python
+services: redis-server
+python:
+ - "2.7"
+env:
+ - FLASK_VERSION=0.9 REDIS_VERSION=2.4.13
+ - FLASK_VERSION=0.9 REDIS_VERSION=2.6.2
+ - FLASK_VERSION=0.9 REDIS_VERSION=2.7.4
+ - FLASK_VERSION=0.10 REDIS_VERSION=2.4.13
+ - FLASK_VERSION=0.10 REDIS_VERSION=2.6.2
+ - FLASK_VERSION=0.10 REDIS_VERSION=2.7.4
+install:
+ - "pip install -r requirements.txt"
+ - "pip install -I Flask==$FLASK_VERSION"
+ - "pip install -I redis==$REDIS_VERSION"
+script: "invoke travisci"
