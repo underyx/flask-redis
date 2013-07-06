@@ -1,6 +1,12 @@
 History
 =======
 
+0.0.3 (6/7/2013)
+----------------
+
+- Added TravisCI Testing for Flask 0.9/0.10.
+- Added Badges to README.
+
 0.0.2 (6/7/2013)
 ----------------
 
