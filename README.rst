@@ -105,3 +105,13 @@ so if you are looking to make use of it, your Redis object shouldn't be named 'r
 For detailed instructions regarding the usage of the client, check the `redis-py <https://github.com/andymccurdy/redis-py>`_ documentation.
 
 Advanced features, such as Lua scripting, pipelines and callbacks are detailed within the projects README.
+
+Contribute
+----------
+
+#. Check for open issues or open a fresh issue to start a discussion around a feature idea or a bug. There is a Contributor Friendly tag for issues that should be ideal for people who are not very familiar with the codebase yet.
+#. Fork `the repository`_ on Github to start making your changes to the **master** branch (or branch off of it).
+#. Write a test which shows that the bug was fixed or that the feature works as expected.
+#. Send a pull request and bug the maintainer until it gets merged and published.
+
+.. _`the repository`: http://github.com/rhyselsmore/flask-redis
