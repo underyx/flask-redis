@@ -14,6 +14,9 @@ class Redis(object):
         """
         Constructor for non-factory Flask applications
         """
+
+        self.config_prefix = config_prefix or 'REDIS'
+
         if app is not None:
             self.init_app(app)
 
@@ -72,9 +75,16 @@ class Redis(object):
         Apply the Flask app configuration to a Redis object
         """
         self.app = app
-        self.app.config.setdefault('REDIS_URL', 'redis://localhost/0')
 
-        self.key = lambda suffix: 'REDIS_{0}'.format(suffix)
+        if self.config_prefix:
+            self.key = lambda suffix: '{0}_REDIS_{1}'.format(
+                self.config_prefix,
+                suffix
+            )
+        else:
+            self.key = lambda suffix: 'REDIS_{0}'.format(suffix)
+
+        self.app.config.setdefault(self.key('URL'), 'redis://localhost/0')
 
         klass = app.config.get(self.key('CLASS'), RedisClass)
 

@@ -1,6 +1,11 @@
 History
 =======
 
+0.0.4 (17/2/2014)
+----------------
+
+- Added support for config_prefix, allowing multiple DBs.
+
 0.0.3 (6/7/2013)
 ----------------
 
