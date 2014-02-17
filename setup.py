@@ -29,8 +29,8 @@ setup(
     platforms='any',
     install_requires=[
         'setuptools',
-        'Flask',
-        'Redis'
+        'Flask>=0.8',
+        'Redis>=2.7.6'
     ],
     classifiers=[
         'Development Status :: 4 - Beta',
