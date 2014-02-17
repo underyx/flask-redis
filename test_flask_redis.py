@@ -22,7 +22,16 @@ class FlaskRedisTestCase(unittest.TestCase):
 
     def test_custom_prefix(self):
         """ Test the use of custom config prefixes """
-        self.redis = Redis(config_prefix='MOOP')
-        self.redis.init_app(self.app)
-        assert self.app.config.get('MOOP_REDIS_URL') is not None
-        assert self.redis.get('potato') is None
+        self.db1_redis = Redis(config_prefix='DB1')
+        self.app.config['DB1_URL'] = "redis://localhost"
+        self.app.config['DB1_DATABASE'] = 0
+        self.db1_redis.init_app(self.app)
+
+        self.db2_redis = Redis(config_prefix='DB2')
+        self.app.config['DB2_URL'] = "redis://localhost"
+        self.app.config['DB2_DATABASE'] = 1
+        self.db2_redis.init_app(self.app)
+
+
+        assert self.db1_redis.get('potato') is None
+        assert self.db2_redis.get('potato') is None

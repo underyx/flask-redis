@@ -20,55 +20,6 @@ class Redis(object):
         if app is not None:
             self.init_app(app)
 
-    def _convert(self, arg, val):
-        """
-        Apply a conversion method to specific arguments i.e. ports
-        """
-        return self.converters[arg](val) if arg in self.converters else val
-
-    def _get_connection_class_args(self, c):
-        """
-        Returns the args that are expected by the Redis class
-        """
-        return ([a.upper() for a in inspect.getargspec(c.__init__).args
-                if a != 'self'])
-
-    def _parse_configuration(self, url=None):
-        """
-        Parse the configuration attached to our application. We provide
-        URL as a default, and other set values (including URL) will override
-        the defaults that are parsed.
-        """
-        if url:
-            urlparse.uses_netloc.append('redis')
-            url = urlparse.urlparse(url)
-
-            self.app.config[self.key('HOST')] = url.hostname
-            self.app.config[self.key('PORT')] = url.port or 6379
-            self.app.config[self.key('USER')] = url.username
-            self.app.config[self.key('PASSWORD')] = url.password
-            db = url.path.replace('/', '')
-            self.app.config[self.key('DB')] = db if db.isdigit() else 0
-
-        host = self.app.config.get(self.key('HOST'), '')
-
-        if host.startswith('file://') or host.startswith('/'):
-            self.app.config.pop(key('HOST'))
-            self.app.config[key('UNIX_SOCKET_PATH')] = host
-
-    def _generate_connection_kwargs(self, args):
-        """
-        Generates the kwargs for the Redis class
-        """
-
-        def value(arg):
-            """
-            Returns the value of the argument from the application config
-            """
-            return self._convert(arg, self.app.config[self.key(arg)])
-
-        args = [arg for arg in args if self.key(arg) in self.app.config]
-        return dict([(arg.lower(), value(arg)) for arg in args])
 
     def init_app(self, app):
         """
@@ -76,25 +27,25 @@ class Redis(object):
         """
         self.app = app
 
-        if self.config_prefix:
-            self.key = lambda suffix: '{0}_REDIS_{1}'.format(
-                self.config_prefix,
-                suffix
-            )
-        else:
-            self.key = lambda suffix: 'REDIS_{0}'.format(suffix)
+        self.key = lambda suffix: '{0}_{1}'.format(
+            self.config_prefix,
+            suffix
+        )
 
-        self.app.config.setdefault(self.key('URL'), 'redis://localhost/0')
+        self.app.config.setdefault(self.key('URL'), 'redis://localhost')
+        self.app.config.setdefault(self.key('DATABASE'), 0)
 
-        klass = app.config.get(self.key('CLASS'), RedisClass)
+        db = self.app.config.get(self.key('DATABASE'))
 
-        if isinstance(klass, basestring):
-            klass = import_string(klass)
 
-        self._parse_configuration(self.app.config.get(self.key('URL')))
-        args = self._get_connection_class_args(klass)
-        kwargs = self._generate_connection_kwargs(args)
-        self.connection = connection = klass(**kwargs)
+        if not str(db).isdigit() or not isinstance(db, int):
+            raise ValueError('A valid DB must be supplied')
+
+        self.connection = connection = RedisClass.from_url(
+            self.app.config.get(self.key('URL')),
+            db=db,
+        )
+
         self._include_connection_methods(connection)
 
     def _include_connection_methods(self, connection):
