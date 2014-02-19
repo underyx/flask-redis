@@ -1,7 +1,4 @@
 from redis import Redis as RedisClass
-import inspect
-import urlparse
-from werkzeug.utils import import_string
 
 __all__ = ('Redis',)
 
