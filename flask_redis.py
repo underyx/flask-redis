@@ -1,7 +1,4 @@
 from redis import Redis as RedisClass
-import inspect
-import urlparse
-from werkzeug.utils import import_string
 
 __all__ = ('Redis',)
 
@@ -20,7 +17,6 @@ class Redis(object):
         if app is not None:
             self.init_app(app)
 
-
     def init_app(self, app):
         """
         Apply the Flask app configuration to a Redis object
@@ -32,11 +28,10 @@ class Redis(object):
             suffix
         )
 
-        self.app.config.setdefault(self.key('URL'), 'redis://localhost')
+        self.app.config.setdefault(self.key('URL'), 'redis://localhost:6379')
         self.app.config.setdefault(self.key('DATABASE'), 0)
 
         db = self.app.config.get(self.key('DATABASE'))
-
 
         if not str(db).isdigit() or not isinstance(db, int):
             raise ValueError('A valid DB must be supplied')
