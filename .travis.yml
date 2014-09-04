@@ -6,8 +6,10 @@ python:
 env:
  - FLASK_VERSION=0.9 REDIS_VERSION=2.6.2
  - FLASK_VERSION=0.9 REDIS_VERSION=2.7.4
+ - FLASK_VERSION=0.9 REDIS_VERSION=2.10.3
  - FLASK_VERSION=0.10 REDIS_VERSION=2.6.2
  - FLASK_VERSION=0.10 REDIS_VERSION=2.7.4
+ - FLASK_VERSION=0.10 REDIS_VERSION=2.10.3
 install:
  - "pip install -r requirements.txt"
  - "pip install -I Flask==$FLASK_VERSION"
@@ -19,3 +21,5 @@ matrix:
       env: FLASK_VERSION=0.9 REDIS_VERSION=2.6.2
     - python: "3.3"
       env: FLASK_VERSION=0.9 REDIS_VERSION=2.7.4
+    - python: "3.3"
+      env: FLASK_VERSION=0.9 REDIS_VERSION=2.10.3

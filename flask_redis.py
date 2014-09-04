@@ -5,8 +5,6 @@ __all__ = ('Redis',)
 
 class Redis(object):
 
-    converters = {'port': int}
-
     def __init__(self, app=None, config_prefix=None):
         """
         Constructor for non-factory Flask applications
@@ -29,12 +27,8 @@ class Redis(object):
         )
 
         self.app.config.setdefault(self.key('URL'), 'redis://localhost:6379')
-        self.app.config.setdefault(self.key('DATABASE'), 0)
 
         db = self.app.config.get(self.key('DATABASE'))
-
-        if not str(db).isdigit() or not isinstance(db, int):
-            raise ValueError('A valid DB must be supplied')
 
         self.connection = connection = RedisClass.from_url(
             self.app.config.get(self.key('URL')),

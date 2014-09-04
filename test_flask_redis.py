@@ -32,5 +32,15 @@ class FlaskRedisTestCase(unittest.TestCase):
         self.app.config['DB2_DATABASE'] = 1
         self.db2_redis.init_app(self.app)
 
+        self.db3_redis = Redis(config_prefix='DB3')
+        self.app.config['DB3_URL'] = "redis://localhost:6379"
+        self.db3_redis.init_app(self.app)
+
+        self.db4_redis = Redis(config_prefix='DB4')
+        self.app.config['DB4_URL'] = "redis://localhost:6379/5"
+        self.db4_redis.init_app(self.app)
+
         assert self.db1_redis.get('potato') is None
         assert self.db2_redis.get('potato') is None
+        assert self.db3_redis.get('potato') is None
+        assert self.db4_redis.get('potato') is None
