@@ -12,23 +12,14 @@ Add Redis Support to Flask.
 
 Built on top of `redis-py <https://github.com/andymccurdy/redis-py>`_.
 
-Currently a single namespace within the configuration is supported.
 
-.. code-block:: python
+Contributors
+------------
 
-    REDIS_URL="redis://localhost"
+- Rhys Elsmore - @rhyselsmore - https://github.com/rhyselsmore
+- Bence Nagy - @underyx - https://github.com/underyx
+- Lars Schöning - @lyschoening - https://github.com/lyschoening
 
-with the Redis instance automatically loading config from this namespace.
-
-In the future, the ability to declare multiple Redis namespaces will be available
-
-.. code-block:: python
-
-    REDIS_CACHE_URL="redis://localhost/0"
-    REDIS_METRICS_URL="redis://localhost/0"
-
-    redis_cache = Redis(config_prefix="REDIS_CACHE")
-    redis_metrics = Redis(config_prefix="REDIS_METRICS")
 
 Installation
 ------------
@@ -49,7 +40,7 @@ Configuration
 -------------
 
 Your configuration should be declared within your Flask config. You can declare
-via a Redis URL
+via a Redis URL containing the database
 
 .. code-block:: python
 
@@ -59,10 +50,8 @@ or you are able to declare the following
 
 .. code-block:: python
 
-    REDIS_HOST = "localhost"
-    REDIS_PASSWORD = "password"
-    REDIS_PORT = 6379
-    REDIS_DATABASE = 5
+    REDIS_URL="redis://:password@localhost:6379"
+    REDIS_DATABASE=5
 
 To create the redis instance within your application
 

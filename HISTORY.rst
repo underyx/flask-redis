@@ -1,6 +1,16 @@
 History
 =======
 
+0.0.6 (4/9/2014)
+----------------
+
+- Improved Python 3 Support (Thanks underyx!).
+- Improved test cases.
+- Improved configuration.
+- Fixed up documentation.
+- Removed un-used imports (Thanks underyx and lyschoening!).
+
+
 0.0.5 (17/2/2014)
 ----------------
 
