@@ -32,6 +32,7 @@ class Redis(object):
 
         self.connection = connection = RedisClass.from_url(
             self.app.config.get(self.key('URL')),
+            max_connections=self.app.config.get(self.key('MAX_CONNECTIONS')),
             db=db,
         )
 
