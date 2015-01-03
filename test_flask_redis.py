@@ -5,6 +5,7 @@
 
 import flask
 from flask_redis import Redis
+import redis
 import unittest
 
 
@@ -44,3 +45,14 @@ class FlaskRedisTestCase(unittest.TestCase):
         assert self.db2_redis.get('potato') is None
         assert self.db3_redis.get('potato') is None
         assert self.db4_redis.get('potato') is None
+
+    def test_strict_redis(self):
+        r = Redis(config_prefix='TEST_STRICT')
+        self.app.config['TEST_STRICT_CLASS'] = redis.StrictRedis
+        r.init_app(self.app)
+        assert r._redisclass == redis.client.StrictRedis
+
+    def test_nonstrict_redis(self):
+        r = Redis(config_prefix='TEST_NON_STRICT')
+        r.init_app(self.app)
+        assert r._redisclass == redis.client.Redis
