@@ -1,4 +1,5 @@
-from redis import Redis as RedisClass
+import redis
+
 
 __all__ = ('Redis',)
 
@@ -30,7 +31,13 @@ class Redis(object):
 
         db = self.app.config.get(self.key('DATABASE'))
 
-        self.connection = connection = RedisClass.from_url(
+        klass = self.app.config.get(self.key('CLASS'))
+        if klass:
+            self._redisclass = klass
+        else:
+            self._redisclass = redis.Redis
+
+        self.connection = connection = self._redisclass.from_url(
             self.app.config.get(self.key('URL')),
             db=db,
         )
