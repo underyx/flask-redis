@@ -2,3 +2,7 @@ invoke
 pytest
 pytest-cov
 pytest-pep8
+flask
+redis
+mock
+mockredispy

@@ -6,6 +6,8 @@
 import flask
 from flask_redis import Redis
 import unittest
+from mock import patch
+from mockredis import mock_redis_client
 
 
 class FlaskRedisTestCase(unittest.TestCase):
@@ -15,13 +17,23 @@ class FlaskRedisTestCase(unittest.TestCase):
         self.redis = Redis()
         self.app = flask.Flask(__name__)
 
-    def test_init_app(self):
+    @patch('redis.Redis.from_url')
+    def test_init_app(self, redis_from_url):
         """ Test the initation of our Redis extension """
+        redis_from_url.return_value = mock_redis_client()
+
         self.redis.init_app(self.app)
         assert self.redis.get('potato') is None
+        assert hasattr(self.app, 'extensions')
+        assert 'redis' in self.app.extensions
+        assert self.redis == self.app.extensions['redis']
 
-    def test_custom_prefix(self):
+    @patch('redis.Redis.from_url')
+    def test_custom_prefix(self, redis_from_url):
         """ Test the use of custom config prefixes """
+
+        redis_from_url.return_value = mock_redis_client()
+
         self.db1_redis = Redis(config_prefix='DB1')
         self.app.config['DB1_URL'] = "redis://localhost:6379"
         self.app.config['DB1_DATABASE'] = 0
