@@ -9,6 +9,7 @@ import unittest
 from mock import patch
 from mockredis import mock_redis_client
 
+
 class FlaskRedisTestCase(unittest.TestCase):
 
     def setUp(self):
