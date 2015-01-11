@@ -21,6 +21,11 @@ class Redis(object):
         """
         self.app = app
 
+        # Register extension
+        if not hasattr(app, 'extensions'):
+            app.extensions = {}
+        app.extensions['redis'] = self
+
         self.key = lambda suffix: '{0}_{1}'.format(
             self.config_prefix,
             suffix
