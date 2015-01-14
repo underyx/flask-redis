@@ -1,4 +1,5 @@
 from redis import Redis as RedisClass
+from redis import StrictRedis as StrictRedisClass
 
 __all__ = ('Redis',)
 
@@ -15,7 +16,7 @@ class Redis(object):
         if app is not None:
             self.init_app(app)
 
-    def init_app(self, app):
+    def init_app(self, app, strict=False):
         """
         Apply the Flask app configuration to a Redis object
         """
@@ -30,10 +31,18 @@ class Redis(object):
 
         db = self.app.config.get(self.key('DATABASE'))
 
-        self.connection = connection = RedisClass.from_url(
-            self.app.config.get(self.key('URL')),
-            db=db,
-        )
+        if strict:
+            self.connection = connection = StrictRedisClass.from_url(
+                self.app.config.get(self.key('URL')),
+                db=db,
+            )   
+        else:
+            self.connection = connection = RedisClass.from_url(
+                self.app.config.get(self.key('URL')),
+                db=db,
+            )    
+
+        
 
         self._include_connection_methods(connection)
 
