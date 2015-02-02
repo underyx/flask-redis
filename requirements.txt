@@ -1,3 +1,6 @@
 Flask>=0.8
 redis>=2.7.6
 invoke
+pytest
+pytest-cov
+pytest-pep8

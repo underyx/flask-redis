@@ -1,6 +1,11 @@
 History
 =======
 
+CURRENT
+-------
+
+- Updated tests for py.test
+
 0.0.6 (4/9/2014)
 ----------------
 

@@ -4,43 +4,56 @@
 """Tests for Flask-Redis."""
 
 import flask
-from flask_redis import Redis
-import unittest
+import pytest
+from flask_redis import FlaskRedis
 
 
-class FlaskRedisTestCase(unittest.TestCase):
+@pytest.fixture
+def app():
+    return flask.Flask(__name__)
 
-    def setUp(self):
-        """ Create a sample Flask Application """
-        self.redis = Redis()
-        self.app = flask.Flask(__name__)
 
-    def test_init_app(self):
-        """ Test the initation of our Redis extension """
-        self.redis.init_app(self.app)
-        assert self.redis.get('potato') is None
+def test_constructor(app):
+    '''Test that a constructor with app instance will initialize the
+    connection'''
+    redis = FlaskRedis(app)
+    assert redis._redis_client is not None
+    assert hasattr(redis._redis_client, 'connection_pool')
 
-    def test_custom_prefix(self):
-        """ Test the use of custom config prefixes """
-        self.db1_redis = Redis(config_prefix='DB1')
-        self.app.config['DB1_URL'] = "redis://localhost:6379"
-        self.app.config['DB1_DATABASE'] = 0
-        self.db1_redis.init_app(self.app)
 
-        self.db2_redis = Redis(config_prefix='DB2')
-        self.app.config['DB2_URL'] = "redis://localhost:6379"
-        self.app.config['DB2_DATABASE'] = 1
-        self.db2_redis.init_app(self.app)
+def test_init_app(app):
+    '''Test that a constructor without app instance will not initialize the
+    connection.
 
-        self.db3_redis = Redis(config_prefix='DB3')
-        self.app.config['DB3_URL'] = "redis://localhost:6379"
-        self.db3_redis.init_app(self.app)
+    After FlaskRedis.init_app(app) is called, the connection will be
+    initialized.'''
+    redis = FlaskRedis()
+    assert redis._redis_client is None
+    redis.init_app(app)
+    assert redis._redis_client is not None
+    assert hasattr(redis._redis_client, 'connection_pool')
 
-        self.db4_redis = Redis(config_prefix='DB4')
-        self.app.config['DB4_URL'] = "redis://localhost:6379/5"
-        self.db4_redis.init_app(self.app)
 
-        assert self.db1_redis.get('potato') is None
-        assert self.db2_redis.get('potato') is None
-        assert self.db3_redis.get('potato') is None
-        assert self.db4_redis.get('potato') is None
+def test_custom_prefix(app):
+    '''Test that config prefixes enable distinct connections'''
+    app.config['DBA_URL'] = 'redis://localhost:6379/1'
+    app.config['DBB_URL'] = 'redis://localhost:6379/2'
+    redis_a = FlaskRedis(app, config_prefix='DBA')
+    redis_b = FlaskRedis(app, config_prefix='DBB')
+    assert redis_a.connection_pool.connection_kwargs['db'] == 1
+    assert redis_b.connection_pool.connection_kwargs['db'] == 2
+
+
+def test_custom_provider(app):
+    '''Test that FlaskRedis can be instructed to use a different Redis client,
+    like StrictRedis'''
+    class FakeProvider(object):
+        @classmethod
+        def from_url(cls, *args, **kwargs):
+            return cls()
+
+    redis = FlaskRedis.from_custom_provider(FakeProvider)
+    assert redis._redis_client is None
+    redis.init_app(app)
+    assert redis._redis_client is not None
+    assert isinstance(redis._redis_client, FakeProvider)
