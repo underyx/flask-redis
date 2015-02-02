@@ -19,6 +19,7 @@ Contributors
 - Rhys Elsmore - @rhyselsmore - https://github.com/rhyselsmore
 - Bence Nagy - @underyx - https://github.com/underyx
 - Lars Schöning - @lyschoening - https://github.com/lyschoening
+- Aaron Tygart - @thekuffs - https://github.com/thekuffs
 
 
 Installation
@@ -46,39 +47,74 @@ via a Redis URL containing the database
 
     REDIS_URL = "redis://:password@localhost:6379/0"
 
-or you are able to declare the following
-
-.. code-block:: python
-
-    REDIS_URL="redis://:password@localhost:6379"
-    REDIS_DATABASE=5
 
 To create the redis instance within your application
 
 .. code-block:: python
 
     from flask import Flask
-    from flask_redis import Redis
+    from flask.ext.redis import FlaskRedis
 
     app = Flask(__name__)
-    redis_store = Redis(app)
+    redis_store = FlaskRedis(app)
 
 or
 
 .. code-block:: python
 
     from flask import Flask
-    from flask_redis import Redis
+    from flask.ext.redis import FlaskRedis
 
-    redis_store = Redis()
+    redis_store = FlaskRedis()
 
     def create_app():
         app = Flask(__name__)
         redis_store.init_app(app)
         return app
 
+or perhaps you want to use ``StrictRedis``
+
+.. code-block:: python
+
+    from flask import Flask
+    from flask.ext.redis import FlaskRedis
+    from redis import StrictRedis
+
+    app = Flask(__name__)
+    redis_store = FlaskRedis(app, provider=StrictRedis)
+
+or maybe you want to use
+`mockredis <https://github.com/locationlabs/mockredis>`_ to make your unit
+tests simpler.  As of ``mockredis`` 2.9.0.10, it does not have the ``from_url()``
+classmethod that ``FlaskRedis`` depends on, so we wrap it and add our own.
+
+.. code-block:: python
+
+
+    from flask import Flask
+    from flask.ext.redis import FlaskRedis
+    from mockredis import MockRedis
+
+    redis_store = FlaskRedis()
+
+    class MockRedisWrapper(MockRedis):
+        '''A wrapper to add the `from_url` classmethod'''
+        @classmethod
+        def from_url(cls, *args, **kwargs):
+            return cls()
+
+    def create_app():
+        app = Flask(__name__)
+        if app.testing:
+            redis_store.init_app(app, provider=MockRedisWrapper)
+        else:
+            redis_store.init_app(app)
+        return app
+
 Usage
 -----
+
+``FlaskRedis`` proxies attribute access to an underlying Redis connection. So treat it as if it were a regular ``Redis`` instance.
 
 .. code-block:: python
 

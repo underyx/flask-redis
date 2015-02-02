@@ -1,6 +1,14 @@
 History
 =======
 
+CURRENT (2/2/2015)
+------------------
+
+- Added provider support for swapping between Redis, StrictRedis, and MockRedis
+- Updated tests for py.test
+- API Change: Redis is now FlaskRedis for clearer stack traces.
+- API Change: Removed support for the 'db' argument, use the URL for that.
+
 0.0.6 (4/9/2014)
 ----------------
 
