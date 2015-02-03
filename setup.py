@@ -20,7 +20,7 @@ setup(
     author='Rhys Elsmore',
     author_email='me@rhys.io',
     description='Redis Extension for Flask Applications',
-    long_description=open('README.rst').read() + '\n\n' +
+    long_description=open('README.rst', encoding='utf-8').read() + '\n\n' +
         open('HISTORY.rst').read(),
     py_modules=['flask_redis'],
     license=open('LICENSE').read(),
