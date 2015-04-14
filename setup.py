@@ -14,7 +14,7 @@ with io.open('LICENSE', encoding='utf-8') as f:
 
 setup(
     name='Flask-Redis',
-    version='0.0.6',
+    version='0.1.0',
     url='https://github.com/underyx/flask-redis',
     author='Rhys Elsmore',
     author_email='me@rhys.io',

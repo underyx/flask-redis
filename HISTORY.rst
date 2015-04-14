@@ -1,10 +1,26 @@
 History
 =======
 
-CURRENT
--------
+0.1.0 (4/15/2015)
+-----------------
 
-- Updated tests for py.test
+- **Deprecation:** Renamed ``flask_redis.Redis`` to ``flask_redis.FlaskRedis``.
+  Using the old name still works, but emits a deprecation warning, as it will
+  be removed from the next version
+- **Deprecation:** Setting a ``REDIS_DATABASE`` (or equivalent) now emits a
+  depracation warning as it will be removed in the version in favor of
+  including the database number in ``REDIS_URL`` (or equivalent)
+- Added a ``FlaskRedis.from_custom_provider(provider)`` class method for using
+  any redis provider class that supports instantiation with a ``from_url``
+  class method
+- Added a ``strict`` parameter to ``FlaskRedis`` which expects a boolean value
+  and allows choosing between using ``redis.StrictRedis`` and ``redis.Redis``
+  as the defualt provider.
+- Made ``FlaskRedis`` register as a Flask extension through Flask's extension
+  API
+- Rewrote test suite in py.test
+- Got rid of the hacky attribute copying mechanism in favor of using the
+  ``__getattr__`` magic method to pass calls to the underlying client
 
 0.0.6 (4/9/2014)
 ----------------

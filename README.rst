@@ -20,6 +20,7 @@ Contributors
 - Bence Nagy - @underyx - https://github.com/underyx
 - Lars Schöning - @lyschoening - https://github.com/lyschoening
 - Aaron Tygart - @thekuffs - https://github.com/thekuffs
+- Christian Sueiras - @csueiras - https://github.com/csueiras
 
 
 Installation
