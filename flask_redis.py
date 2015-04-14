@@ -1,48 +1,64 @@
-from redis import Redis as RedisClass
+import warnings
+from redis import Redis as _Redis
 
-__all__ = ('Redis',)
+__all__ = ('Redis', 'FlaskRedis')
 __version__ = '0.0.6'
 
 
-class Redis(object):
-    def __init__(self, app=None, config_prefix=None):
-        """
-        Constructor for non-factory Flask applications
-        """
-
-        self.config_prefix = config_prefix or 'REDIS'
+class FlaskRedis(object):
+    def __init__(self, app=None, config_prefix='REDIS'):
+        self._provider_class = None
+        self._redis_client = None
+        self.config_prefix = config_prefix
 
         if app is not None:
             self.init_app(app)
 
+    @classmethod
+    def from_custom_provider(cls, provider, app=None, **kwargs):
+        assert provider is not None
+
+        # We never pass the app parameter here, so we can call init_app
+        # ourselves later, after the provider class has been set
+        instance = cls(**kwargs)
+
+        instance._provider_class = provider
+        if app is not None:
+            instance.init_app(app)
+        return instance
+
     def init_app(self, app):
-        """
-        Apply the Flask app configuration to a Redis object
-        """
-        self.app = app
+        if self._provider_class is None:
+            self._provider_class = _Redis
 
-        self.key = lambda suffix: '{0}_{1}'.format(
-            self.config_prefix,
-            suffix
+        redis_url = app.config.get(
+            '{0}_URL'.format(self.config_prefix), 'redis://localhost:6379/0'
+        )
+        db = app.config.get('{0}_DATABASE'.format(self.config_prefix))
+
+        if db is not None:
+            warnings.warn(
+                'Setting the redis database in its own config variable is '
+                'deprecated. Please include it in the URL variable instead.',
+                DeprecationWarning,
+            )
+
+        self._redis_client = self._provider_class.from_url(redis_url, db=db)
+
+        if not hasattr(app, 'extensions'):
+            app.extensions = {}
+        app.extensions['redis'] = self
+
+    def __getattr__(self, name):
+        return getattr(self._redis_client, name)
+
+
+class Redis(FlaskRedis):
+    def __init__(self, *args, **kwargs):
+        warnings.warn(
+            'Instantiating Flask-Redis via flask_redis.Redis is deprecated. '
+            'Please use flask_redis.FlaskRedis instead.',
+            DeprecationWarning,
         )
 
-        self.app.config.setdefault(self.key('URL'), 'redis://localhost:6379')
-
-        db = self.app.config.get(self.key('DATABASE'))
-
-        self.connection = connection = RedisClass.from_url(
-            self.app.config.get(self.key('URL')),
-            db=db,
-        )
-
-        self._include_connection_methods(connection)
-
-    def _include_connection_methods(self, connection):
-        """
-        Include methods from connection instance to current instance.
-        """
-        for attr in dir(connection):
-            value = getattr(connection, attr)
-            if attr.startswith('_') or not callable(value):
-                continue
-            self.__dict__[attr] = value
+        super(Redis, self).__init__(*args, **kwargs)
