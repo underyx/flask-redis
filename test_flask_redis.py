@@ -44,6 +44,19 @@ def test_custom_prefix(app):
     assert redis_b.connection_pool.connection_kwargs['db'] == 2
 
 
+def test_strict_parameter(app):
+    '''Test that initializing with the strict parameter set to True will use
+    StrictRedis, and that False will keep using the old Redis class.'''
+
+    redis = FlaskRedis(app, strict=True)
+    assert redis._redis_client is not None
+    assert type(redis._redis_client).__name__ == 'StrictRedis'
+
+    redis = FlaskRedis(app, strict=False)
+    assert redis._redis_client is not None
+    assert type(redis._redis_client).__name__ == 'Redis'
+
+
 def test_custom_provider(app):
     '''Test that FlaskRedis can be instructed to use a different Redis client,
     like StrictRedis'''
