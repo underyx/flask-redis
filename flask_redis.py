@@ -1,10 +1,10 @@
 from redis import Redis as RedisClass
 
 __all__ = ('Redis',)
+__version__ = '0.0.6'
 
 
 class Redis(object):
-
     def __init__(self, app=None, config_prefix=None):
         """
         Constructor for non-factory Flask applications
