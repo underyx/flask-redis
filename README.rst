@@ -1,7 +1,7 @@
 Flask-Redis
 ===========
 
-.. image:: https://travis-ci.org/underyx/flask-redis.png?branch=master
+.. image:: https://travis-ci.org/underyx/flask-redis.svg?branch=master
    :target: https://travis-ci.org/underyx/flask-redis
    :alt: Test Suite
 

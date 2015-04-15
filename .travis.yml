@@ -19,9 +19,10 @@ script: invoke travisci
 after_success: coveralls
 matrix:
   exclude:
-    - python: "3.4"
+    - python: 3.4
       env: FLASK_VERSION=0.9 REDIS_VERSION=2.6.2
-    - python: "3.4"
-      env: FLASK_VERSION=0.9 REDIS_VERSION=2.7.4
-    - python: "3.4"
+    - python: 3.4
+      env: FLASK_VERSION=0.9 REDIS_VERSION=2.7.6
+    - python: 3.4
       env: FLASK_VERSION=0.9 REDIS_VERSION=2.10.3
+
