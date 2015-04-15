@@ -2,8 +2,8 @@ Flask-Redis
 ===========
 
 
-.. image:: https://travis-ci.org/rhyselsmore/flask-redis.png?branch=master
-        :target: https://travis-ci.org/rhyselsmore/flask-redis
+.. image:: https://travis-ci.org/underyx/flask-redis.png?branch=master
+        :target: https://travis-ci.org/underyx/flask-redis
 
 .. image:: https://pypip.in/d/Flask-Redis/badge.png
         :target: https://crate.io/packages/Flask-Redis/
@@ -141,4 +141,4 @@ Contribute
 #. Write a test which shows that the bug was fixed or that the feature works as expected.
 #. Send a pull request and bug the maintainer until it gets merged and published.
 
-.. _`the repository`: http://github.com/rhyselsmore/flask-redis
+.. _`the repository`: http://github.com/underyx/flask-redis
