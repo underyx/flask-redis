@@ -23,4 +23,4 @@ def full():
 
 @task
 def travisci():
-    run('py.test --pep8 test_flask_redis.py')
+    run('py.test --cov=flask_redis --pep8 test_flask_redis.py')

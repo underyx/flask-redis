@@ -1,17 +1,21 @@
 Flask-Redis
 ===========
 
-
 .. image:: https://travis-ci.org/underyx/flask-redis.png?branch=master
-        :target: https://travis-ci.org/underyx/flask-redis
+   :target: https://travis-ci.org/underyx/flask-redis
+   :alt: Test Suite
 
-.. image:: https://pypip.in/d/Flask-Redis/badge.png
-        :target: https://crate.io/packages/Flask-Redis/
+.. image:: https://coveralls.io/repos/underyx/flask-redis/badge.svg
+   :target: https://coveralls.io/r/underyx/flask-redis
+   :alt: Test Coverage
 
-Add Redis Support to Flask.
+.. image:: https://landscape.io/github/underyx/flask-redis/master/landscape.svg?style=flat
+   :target: https://landscape.io/github/underyx/flask-redis/master
+   :alt: Code Health
+
+Adds Redis support to Flask.
 
 Built on top of `redis-py <https://github.com/andymccurdy/redis-py>`_.
-
 
 Contributors
 ------------
