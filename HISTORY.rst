@@ -8,7 +8,7 @@ History
   Using the old name still works, but emits a deprecation warning, as it will
   be removed from the next version
 - **Deprecation:** Setting a ``REDIS_DATABASE`` (or equivalent) now emits a
-  depracation warning as it will be removed in the version in favor of
+  deprecation warning as it will be removed in the version in favor of
   including the database number in ``REDIS_URL`` (or equivalent)
 - Added a ``FlaskRedis.from_custom_provider(provider)`` class method for using
   any redis provider class that supports instantiation with a ``from_url``
