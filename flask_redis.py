@@ -40,16 +40,18 @@ class FlaskRedis(object):
         redis_url = app.config.get(
             '{0}_URL'.format(self.config_prefix), 'redis://localhost:6379/0'
         )
-        db = app.config.get('{0}_DATABASE'.format(self.config_prefix))
+        database = app.config.get('{0}_DATABASE'.format(self.config_prefix))
 
-        if db is not None:
+        if database is not None:
             warnings.warn(
                 'Setting the redis database in its own config variable is '
                 'deprecated. Please include it in the URL variable instead.',
                 DeprecationWarning,
             )
 
-        self._redis_client = self.provider_class.from_url(redis_url, db=db)
+        self._redis_client = self.provider_class.from_url(
+            redis_url, db=database
+        )
 
         if not hasattr(app, 'extensions'):
             app.extensions = {}

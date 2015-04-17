@@ -5,11 +5,9 @@ from setuptools import setup
 
 
 with io.open('README.rst', encoding='utf-8') as f:
-    readme = f.read()
+    README = f.read()
 with io.open('HISTORY.rst', encoding='utf-8') as f:
-    history = f.read()
-with io.open('LICENSE', encoding='utf-8') as f:
-    license = f.read()
+    HISTORY = f.read()
 
 
 setup(
@@ -22,9 +20,8 @@ setup(
     maintainer_email='bence@underyx.me',
     download_url='https://github.com/underyx/flask-redis/releases',
     description='Redis Extension for Flask Applications',
-    long_description=readme + '\n\n' + history,
+    long_description=README + '\n\n' + HISTORY,
     py_modules=['flask_redis'],
-    license=license,
     package_data={'': ['LICENSE']},
     zip_safe=False,
     install_requires=[
