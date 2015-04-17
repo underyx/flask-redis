@@ -11,8 +11,8 @@ __version__ = '0.1.0'
 
 class FlaskRedis(object):
     def __init__(self, app=None, strict=False, config_prefix='REDIS'):
-        self._provider_class = None
         self._redis_client = None
+        self.provider_class = None
         self.config_prefix = config_prefix
 
         if app is not None:
@@ -26,14 +26,14 @@ class FlaskRedis(object):
         # ourselves later, after the provider class has been set
         instance = cls(**kwargs)
 
-        instance._provider_class = provider
+        instance.provider_class = provider
         if app is not None:
             instance.init_app(app)
         return instance
 
     def init_app(self, app, strict=False):
-        if self._provider_class is None:
-            self._provider_class = (
+        if self.provider_class is None:
+            self.provider_class = (
                 redis.StrictRedis if strict else redis.Redis
             )
 
@@ -49,7 +49,7 @@ class FlaskRedis(object):
                 DeprecationWarning,
             )
 
-        self._redis_client = self._provider_class.from_url(redis_url, db=db)
+        self._redis_client = self.provider_class.from_url(redis_url, db=db)
 
         if not hasattr(app, 'extensions'):
             app.extensions = {}
