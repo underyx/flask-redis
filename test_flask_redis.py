@@ -44,6 +44,14 @@ def test_custom_prefix(app):
     assert redis_b.connection_pool.connection_kwargs['db'] == 2
 
 
+def test_unix_socket_urls(app):
+    '''Test whether Redis properly parses unix domain socket paths'''
+    app.config['REDIS_URL'] = 'unix:///var/run/redis/redis.sock?db=1'
+    r = FlaskRedis(app)
+    assert r.connection_pool.connection_kwargs['path'] == '/var/run/redis/redis.sock'
+    assert r.connection_pool.connection_kwargs['db'] == 1
+
+
 def test_strict_parameter(app):
     '''Test that initializing with the strict parameter set to True will use
     StrictRedis, and that False will keep using the old Redis class.'''
