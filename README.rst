@@ -134,7 +134,7 @@ Usage
 
     @app.route('/')
     def index():
-        return redis_store.get('potato', 'Not Set')
+        return redis_store.get('potato') or 'Not Set'
 
 **Protip:** The `redis-py <https://github.com/andymccurdy/redis-py>`_ package currently holds the 'redis' namespace,
 so if you are looking to make use of it, your Redis object shouldn't be named 'redis'.
