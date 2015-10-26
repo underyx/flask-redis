@@ -1,4 +1,3 @@
-import warnings
 try:
     import redis
 except ImportError:
@@ -40,18 +39,8 @@ class FlaskRedis(object):
         redis_url = app.config.get(
             '{0}_URL'.format(self.config_prefix), 'redis://localhost:6379/0'
         )
-        database = app.config.get('{0}_DATABASE'.format(self.config_prefix))
 
-        if database is not None:
-            warnings.warn(
-                'Setting the redis database in its own config variable is '
-                'deprecated. Please include it in the URL variable instead.',
-                DeprecationWarning,
-            )
-
-        self._redis_client = self.provider_class.from_url(
-            redis_url, db=database
-        )
+        self._redis_client = self.provider_class.from_url(redis_url)
 
         if not hasattr(app, 'extensions'):
             app.extensions = {}
@@ -59,14 +48,3 @@ class FlaskRedis(object):
 
     def __getattr__(self, name):
         return getattr(self._redis_client, name)
-
-
-class Redis(FlaskRedis):
-    def __init__(self, *args, **kwargs):
-        warnings.warn(
-            'Instantiating Flask-Redis via flask_redis.Redis is deprecated. '
-            'Please use flask_redis.FlaskRedis instead.',
-            DeprecationWarning,
-        )
-
-        super(Redis, self).__init__(*args, **kwargs)
