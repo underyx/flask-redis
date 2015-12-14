@@ -8,8 +8,8 @@ __all__ = ('Redis', 'FlaskRedis')
 __version__ = '0.1.0'
 
 
-class FlaskRedis(object, **kwargs):
-    def __init__(self, app=None, strict=False, config_prefix='REDIS'):
+class FlaskRedis(object):
+    def __init__(self, app=None, strict=False, config_prefix='REDIS', **kwargs):
         self._redis_client = None
         self.provider_class = None
         self.config_prefix = config_prefix
