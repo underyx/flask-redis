@@ -11,6 +11,8 @@ History
   ``app.extensions['redis']`` as before.
 - **Backwards incompatible:** The default class has been changed to ``redis.StrictRedis``. You can switch back to the
   old ``redis.Redis`` class by specifying ``strict=False`` in the ``FlaskRedis`` kwargs.
+- You can now pass all supported ``Redis`` keyword arguments (such as ``decode_responses``) to ``FlaskRedis`` and they
+  will be correctly passed over to the ``redis-py`` instance. Thanks, @giyyapan!
 
 0.2.0 (4/15/2015)
 -----------------
