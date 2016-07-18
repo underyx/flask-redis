@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-"""Tests for Flask-Redis."""
+"""Integration tests for Flask-Redis."""
 
 import flask
 from flask_redis import FlaskRedis
@@ -14,19 +13,19 @@ def app():
 
 
 def test_constructor(app):
-    '''Test that a constructor with app instance will initialize the
-    connection'''
+    """Test that a constructor with app instance will initialize the
+    connection"""
     redis = FlaskRedis(app)
     assert redis._redis_client is not None
     assert hasattr(redis._redis_client, 'connection_pool')
 
 
 def test_init_app(app):
-    '''Test that a constructor without app instance will not initialize the
+    """Test that a constructor without app instance will not initialize the
     connection.
 
     After FlaskRedis.init_app(app) is called, the connection will be
-    initialized.'''
+    initialized."""
     redis = FlaskRedis()
     assert redis._redis_client is None
     redis.init_app(app)
@@ -35,7 +34,7 @@ def test_init_app(app):
 
 
 def test_custom_prefix(app):
-    '''Test that config prefixes enable distinct connections'''
+    """Test that config prefixes enable distinct connections"""
     app.config['DBA_URL'] = 'redis://localhost:6379/1'
     app.config['DBB_URL'] = 'redis://localhost:6379/2'
     redis_a = FlaskRedis(app, config_prefix='DBA')
@@ -45,8 +44,8 @@ def test_custom_prefix(app):
 
 
 def test_strict_parameter(app):
-    '''Test that initializing with the strict parameter set to True will use
-    StrictRedis, and that False will keep using the old Redis class.'''
+    """Test that initializing with the strict parameter set to True will use
+    StrictRedis, and that False will keep using the old Redis class."""
 
     redis = FlaskRedis(app, strict=True)
     assert redis._redis_client is not None
@@ -58,8 +57,8 @@ def test_strict_parameter(app):
 
 
 def test_custom_provider(app):
-    '''Test that FlaskRedis can be instructed to use a different Redis client,
-    like StrictRedis'''
+    """Test that FlaskRedis can be instructed to use a different Redis client,
+    like StrictRedis"""
     class FakeProvider(object):
 
         @classmethod
