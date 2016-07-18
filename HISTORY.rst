@@ -9,6 +9,8 @@ History
 - **Backwards incompatible:** The extension will now be registered under the (lowercased) config prefix of the instance.
   The default config prefix is ``'REDIS'``, so unless you change that, you can still access the extension via
   ``app.extensions['redis']`` as before.
+- **Backwards incompatible:** The default class has been changed to ``redis.StrictRedis``. You can switch back to the
+  old ``redis.Redis`` class by specifying ``strict=False`` in the ``FlaskRedis`` kwargs.
 
 0.2.0 (4/15/2015)
 -----------------

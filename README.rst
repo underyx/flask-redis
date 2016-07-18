@@ -77,7 +77,7 @@ or
         redis_store.init_app(app)
         return app
 
-or perhaps you want to use ``StrictRedis``
+or perhaps you want to use the old, plain ``Redis`` class instead of ``StrictRedis``
 
 .. code-block:: python
 
@@ -86,7 +86,7 @@ or perhaps you want to use ``StrictRedis``
     from redis import StrictRedis
 
     app = Flask(__name__)
-    redis_store = FlaskRedis.from_custom_provider(StrictRedis, app)
+    redis_store = FlaskRedis(app, strict=False)
 
 or maybe you want to use
 `mockredis <https://github.com/locationlabs/mockredis>`_ to make your unit
