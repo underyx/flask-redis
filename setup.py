@@ -28,11 +28,6 @@ setup(
         'Flask>=0.8',
         'redis>=2.7.6',
     ],
-    extras_require={
-        'develop': [
-            'invoke',
-        ],
-    },
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
