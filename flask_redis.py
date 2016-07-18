@@ -46,3 +46,12 @@ class FlaskRedis(object):
 
     def __getattr__(self, name):
         return getattr(self._redis_client, name)
+
+    def __getitem__(self, name):
+        return self._redis_client[name]
+
+    def __setitem__(self, name, value):
+        self._redis_client[name] = value
+
+    def __delitem__(self, name):
+        del self._redis_client[name]

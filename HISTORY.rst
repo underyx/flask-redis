@@ -13,6 +13,8 @@ History
   old ``redis.Redis`` class by specifying ``strict=False`` in the ``FlaskRedis`` kwargs.
 - You can now pass all supported ``Redis`` keyword arguments (such as ``decode_responses``) to ``FlaskRedis`` and they
   will be correctly passed over to the ``redis-py`` instance. Thanks, @giyyapan!
+- Usage like ``redis_store['key'] = value``, ``redis_store['key']``, and ``del redis_store['key']`` is now supported.
+  Thanks, @ariscn!
 
 0.2.0 (4/15/2015)
 -----------------
