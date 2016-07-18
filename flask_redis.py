@@ -40,7 +40,7 @@ class FlaskRedis(object):
 
         if not hasattr(app, 'extensions'):
             app.extensions = {}
-        app.extensions['redis'] = self
+        app.extensions[self.config_prefix.lower()] = self
 
     def __getattr__(self, name):
         return getattr(self._redis_client, name)
