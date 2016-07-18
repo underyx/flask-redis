@@ -4,7 +4,7 @@ except ImportError:
     # We can allow custom provider only usage without redis-py being installed
     redis = None
 
-__all__ = ('Redis', 'FlaskRedis')
+__all__ = ('FlaskRedis', )
 __version__ = '0.1.0'
 
 
