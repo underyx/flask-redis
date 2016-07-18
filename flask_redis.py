@@ -12,11 +12,11 @@ class FlaskRedis(object):
 
     def __init__(self, app=None, strict=False, config_prefix='REDIS'):
         self._redis_client = None
-        self.provider_class = None
+        self.provider_class = redis.StrictRedis if strict else redis.Redis
         self.config_prefix = config_prefix
 
         if app is not None:
-            self.init_app(app, strict)
+            self.init_app(app)
 
     @classmethod
     def from_custom_provider(cls, provider, app=None, **kwargs):
@@ -31,12 +31,7 @@ class FlaskRedis(object):
             instance.init_app(app)
         return instance
 
-    def init_app(self, app, strict=False):
-        if self.provider_class is None:
-            self.provider_class = (
-                redis.StrictRedis if strict else redis.Redis
-            )
-
+    def init_app(self, app):
         redis_url = app.config.get(
             '{0}_URL'.format(self.config_prefix), 'redis://localhost:6379/0'
         )
