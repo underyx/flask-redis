@@ -1,6 +1,12 @@
 History
 =======
 
+0.3.0 (unreleased)
+-----------------
+
+- **Backwards incompatible:** The ``FlaskRedis.init_app`` method no longer takes a ``strict`` parameter. Pass this flag
+  when creating your ``FlaskRedis`` instance, instead.
+
 0.2.0 (4/15/2015)
 -----------------
 
