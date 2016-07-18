@@ -1,0 +1,50 @@
+[default]
+files = *.py, *.yml, *.yaml, *.rst, *.ini
+bears =
+  SpaceConsistencyBear,
+  LineLengthBear,
+  LineCountBear,
+  KeywordBear,
+  InvalidLinkBear,
+  GitCommitBear,
+
+use_spaces = True
+max_line_length = 120
+max_lines_per_file = 1000
+
+ci_keywords = FIXME, pdb.set_trace()
+cs_keywords =
+
+ignore_regex = {.+}  # for InvalidLinkBear
+
+shortlog_length = 72
+
+[yaml]
+limit_files = *.yml, *.yaml
+bears =
+  FilenameBear,
+  YAMLLintBear,
+
+file_naming_convention = snake
+tab_width = 2
+
+[python]
+limit_files = *.py
+bears =
+  FilenameBear,
+  PyImportSortBear,
+  PyUnusedCodeBear,
+  RadonBear,
+  PEP8Bear,
+
+file_naming_convention = snake
+
+force_single_line_imports = no
+isort_multi_line_output = 5
+include_trailing_comma_in_import = yes
+default_import_section = THIRDPARTY
+
+[rest]
+limit_files = *.rst
+bears =
+  reSTLintBear,
