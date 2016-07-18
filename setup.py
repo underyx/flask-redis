@@ -21,7 +21,7 @@ setup(
     download_url='https://github.com/underyx/flask-redis/releases',
     description='Redis Extension for Flask Applications',
     long_description=README + '\n\n' + HISTORY,
-    py_modules=['flask_redis'],
+    packages=['flask_redis'],
     package_data={'': ['LICENSE']},
     zip_safe=False,
     install_requires=[
