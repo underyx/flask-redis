@@ -5,7 +5,7 @@ except ImportError:
     redis = None
 
 __all__ = ('FlaskRedis', )
-__version__ = '0.1.0'
+__version__ = '0.3.0'
 
 
 class FlaskRedis(object):
