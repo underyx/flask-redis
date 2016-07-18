@@ -4,17 +4,21 @@ History
 0.3.0 (2016-07-18)
 ------------------
 
-- **Backwards incompatible:** The ``FlaskRedis.init_app`` method no longer takes a ``strict`` parameter. Pass this flag
-  when creating your ``FlaskRedis`` instance, instead.
-- **Backwards incompatible:** The extension will now be registered under the (lowercased) config prefix of the instance.
-  The default config prefix is ``'REDIS'``, so unless you change that, you can still access the extension via
+- **Backwards incompatible:** The ``FlaskRedis.init_app`` method no longer takes
+  a ``strict`` parameter. Pass this flag when creating your ``FlaskRedis``
+  instance, instead.
+- **Backwards incompatible:** The extension will now be registered under the
+  (lowercased) config prefix of the instance. The default config prefix is
+  ``'REDIS'``, so unless you change that, you can still access the extension via
   ``app.extensions['redis']`` as before.
-- **Backwards incompatible:** The default class has been changed to ``redis.StrictRedis``. You can switch back to the
-  old ``redis.Redis`` class by specifying ``strict=False`` in the ``FlaskRedis`` kwargs.
-- You can now pass all supported ``Redis`` keyword arguments (such as ``decode_responses``) to ``FlaskRedis`` and they
-  will be correctly passed over to the ``redis-py`` instance. Thanks, @giyyapan!
-- Usage like ``redis_store['key'] = value``, ``redis_store['key']``, and ``del redis_store['key']`` is now supported.
-  Thanks, @ariscn!
+- **Backwards incompatible:** The default class has been changed to
+  ``redis.StrictRedis``. You can switch back to the old ``redis.Redis`` class by
+  specifying ``strict=False`` in the ``FlaskRedis`` kwargs.
+- You can now pass all supported ``Redis`` keyword arguments (such as
+  ``decode_responses``) to ``FlaskRedis`` and they will be correctly passed over
+  to the ``redis-py`` instance. Thanks, @giyyapan!
+- Usage like ``redis_store['key'] = value``, ``redis_store['key']``, and
+  ``del redis_store['key']`` is now supported. Thanks, @ariscn!
 
 0.2.0 (4/15/2015)
 -----------------
