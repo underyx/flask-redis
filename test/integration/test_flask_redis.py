@@ -31,6 +31,9 @@ def test_init_app(app):
     redis.init_app(app)
     assert redis._redis_client is not None
     assert hasattr(redis._redis_client, 'connection_pool')
+    if hasattr(app, 'extensions'):
+        assert 'redis' in app.extensions
+        assert app.extensions['redis'] == redis
 
 
 def test_custom_prefix(app):
