@@ -38,12 +38,12 @@ History
 
 
 0.0.5 (17/2/2014)
-----------------
+-----------------
 
-- Improved support for the config prefix.
+- Improved suppot for the config prefix.
 
 0.0.4 (17/2/2014)
-----------------
+-----------------
 
 - Added support for config_prefix, allowing multiple DBs.
 

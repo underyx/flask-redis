@@ -4,8 +4,8 @@
 """Tests for Flask-Redis."""
 
 import flask
-import pytest
 from flask_redis import FlaskRedis
+import pytest
 
 
 @pytest.fixture
@@ -61,6 +61,7 @@ def test_custom_provider(app):
     '''Test that FlaskRedis can be instructed to use a different Redis client,
     like StrictRedis'''
     class FakeProvider(object):
+
         @classmethod
         def from_url(cls, *args, **kwargs):
             return cls()

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 import io
-from setuptools import setup
 
+from setuptools import setup
 
 with io.open('README.rst', encoding='utf-8') as f:
     README = f.read()

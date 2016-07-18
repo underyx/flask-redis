@@ -9,6 +9,7 @@ __version__ = '0.1.0'
 
 
 class FlaskRedis(object):
+
     def __init__(self, app=None, strict=False, config_prefix='REDIS'):
         self._redis_client = None
         self.provider_class = None

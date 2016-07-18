@@ -1,21 +1,21 @@
 Flask-Redis
 ===========
 
-.. image:: https://travis-ci.org/underyx/flask-redis.svg?branch=master
+.. image:: https://api.travis-ci.org/underyx/flask-redis.svg?branch=master
    :target: https://travis-ci.org/underyx/flask-redis
    :alt: Test Suite
 
 .. image:: https://coveralls.io/repos/underyx/flask-redis/badge.svg
-   :target: https://coveralls.io/r/underyx/flask-redis
+   :target: https://coveralls.io/github/underyx/flask-redis
    :alt: Test Coverage
 
 .. image:: https://landscape.io/github/underyx/flask-redis/master/landscape.svg?style=flat
-   :target: https://landscape.io/github/underyx/flask-redis/master
+   :target: https://landscape.io/github/underyx/flask-redis
    :alt: Code Health
 
 Adds Redis support to Flask.
 
-Built on top of `redis-py <https://github.com/andymccurdy/redis-py>`_.
+Built on top of redis-py_.
 
 Contributors
 ------------
@@ -120,7 +120,8 @@ classmethod that ``FlaskRedis`` depends on, so we wrap it and add our own.
 Usage
 -----
 
-``FlaskRedis`` proxies attribute access to an underlying Redis connection. So treat it as if it were a regular ``Redis`` instance.
+``FlaskRedis`` proxies attribute access to an underlying Redis connection. So treat it as if it were a regular ``Redis``
+instance.
 
 .. code-block:: python
 
@@ -130,19 +131,21 @@ Usage
     def index():
         return redis_store.get('potato', 'Not Set')
 
-**Protip:** The `redis-py <https://github.com/andymccurdy/redis-py>`_ package currently holds the 'redis' namespace,
-so if you are looking to make use of it, your Redis object shouldn't be named 'redis'.
+**Protip:** The redis-py_ package currently holds the 'redis' namespace, so if you are looking to make use of it, your
+Redis object shouldn't be named 'redis'.
 
-For detailed instructions regarding the usage of the client, check the `redis-py <https://github.com/andymccurdy/redis-py>`_ documentation.
+For detailed instructions regarding the usage of the client, check the redis-py_ documentation.
 
 Advanced features, such as Lua scripting, pipelines and callbacks are detailed within the projects README.
 
 Contribute
 ----------
 
-#. Check for open issues or open a fresh issue to start a discussion around a feature idea or a bug. There is a Contributor Friendly tag for issues that should be ideal for people who are not very familiar with the codebase yet.
+#. Check for open issues or open a fresh issue to start a discussion around a feature idea or a bug. There is a
+   Contributor Friendly tag for issues that should be ideal for people who are not very familiar with the codebase yet.
 #. Fork `the repository`_ on Github to start making your changes to the **master** branch (or branch off of it).
 #. Write a test which shows that the bug was fixed or that the feature works as expected.
 #. Send a pull request and bug the maintainer until it gets merged and published.
 
-.. _`the repository`: http://github.com/underyx/flask-redis
+.. _`the repository`: https://github.com/underyx/flask-redis
+.. _redis-py: https://github.com/andymccurdy/redis-py
