@@ -9,13 +9,13 @@ __version__ = '0.1.0'
 
 
 class FlaskRedis(object):
-    def __init__(self, app=None, strict=False, config_prefix='REDIS'):
+    def __init__(self, app=None, strict=False, config_prefix='REDIS', **kwargs):
         self._redis_client = None
         self.provider_class = None
         self.config_prefix = config_prefix
 
         if app is not None:
-            self.init_app(app, strict)
+            self.init_app(app, strict, **kwargs)
 
     @classmethod
     def from_custom_provider(cls, provider, app=None, **kwargs):
@@ -30,7 +30,7 @@ class FlaskRedis(object):
             instance.init_app(app)
         return instance
 
-    def init_app(self, app, strict=False):
+    def init_app(self, app, strict=False, **kwargs):
         if self.provider_class is None:
             self.provider_class = (
                 redis.StrictRedis if strict else redis.Redis
@@ -40,7 +40,7 @@ class FlaskRedis(object):
             '{0}_URL'.format(self.config_prefix), 'redis://localhost:6379/0'
         )
 
-        self._redis_client = self.provider_class.from_url(redis_url)
+        self._redis_client = self.provider_class.from_url(redis_url, **kwargs)
 
         if not hasattr(app, 'extensions'):
             app.extensions = {}
