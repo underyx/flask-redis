@@ -6,6 +6,9 @@ History
 
 - **Backwards incompatible:** The ``FlaskRedis.init_app`` method no longer takes a ``strict`` parameter. Pass this flag
   when creating your ``FlaskRedis`` instance, instead.
+- **Backwards incompatible:** The extension will now be registered under the (lowercased) config prefix of the instance.
+  The default config prefix is ``'REDIS'``, so unless you change that, you can still access the extension via
+  ``app.extensions['redis']`` as before.
 
 0.2.0 (4/15/2015)
 -----------------
