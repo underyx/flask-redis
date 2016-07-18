@@ -45,12 +45,13 @@ Or if you *must* use easy_install:
 Configuration
 -------------
 
-Your configuration should be declared within your Flask config. You can declare
-via a Redis URL containing the database
+Your configuration should be declared within your Flask config. Set the URL of your database like this:
 
 .. code-block:: python
 
     REDIS_URL = "redis://:password@localhost:6379/0"
+    # or
+    REDIS_URL = "unix://[:password]@/path/to/socket.sock?db=0"
 
 
 To create the redis instance within your application
