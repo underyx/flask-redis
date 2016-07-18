@@ -1,26 +1,26 @@
-from invoke import run, task
+from invoke import task
 
 
 @task
-def test():
-    run('py.test test_flask_redis.py', pty=True)
+def test(ctx):
+    ctx.run('/usr/bin/env py.test test_flask_redis.py', pty=True)
 
 
 @task
-def coverage():
-    run('py.test --cov=flask_redis test_flask_redis.py', pty=True)
+def coverage(ctx):
+    ctx.run('/usr/bin/env py.test --cov-report term-missing --cov=flask_redis', pty=True)
 
 
 @task
-def pep8():
-    run('py.test --pep8 test_flask_redis.py', pty=True)
+def pep8(ctx):
+    ctx.run('/usr/bin/env py.test --pep8 flask_redis.py test_flask_redis.py -m pep8', pty=True)
 
 
 @task
-def full():
-    run('py.test --pep8 --cov=flask_redis test_flask_redis.py', pty=True)
+def full(ctx):
+    ctx.run('/usr/bin/env py.test --pep8 --cov=flask_redis flask_redis.py test_flask_redis.py', pty=True)
 
 
 @task
-def travisci():
-    run('py.test --cov=flask_redis --pep8 test_flask_redis.py')
+def travisci(ctx):
+    ctx.run('/usr/bin/env py.test --pep8 --cov=flask_redis flask_redis.py test_flask_redis.py')
