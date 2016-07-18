@@ -1,6 +1,2 @@
-Flask>=0.8
-redis>=2.7.6
-invoke
-pytest
-pytest-cov
-pytest-pep8
+Flask>=0.9
+redis>=2.6.2

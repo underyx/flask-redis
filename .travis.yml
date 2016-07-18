@@ -14,7 +14,7 @@ env:
  - FLASK_VERSION=0.11 REDIS_VERSION=2.10.5
  - FLASK_VERSION=0.11 REDIS_VERSION=2.10.5
 install:
- - "pip install -r requirements.txt"
+ - "pip install -r test-requirements.txt"
  - "pip install -I Flask==$FLASK_VERSION"
  - "pip install -I redis==$REDIS_VERSION"
  - "pip install -I coveralls"
