@@ -21,7 +21,7 @@ class FlaskRedis(object):
 
     @classmethod
     def from_custom_provider(cls, provider, app=None, **kwargs):
-        assert provider is not None, 'your custom provider cannot be None, come on'
+        assert provider is not None, 'your custom provider is None, come on'
 
         # We never pass the app parameter here, so we can call init_app
         # ourselves later, after the provider class has been set
@@ -38,7 +38,9 @@ class FlaskRedis(object):
         )
 
         self.provider_kwargs.update(kwargs)
-        self._redis_client = self.provider_class.from_url(redis_url, **self.provider_kwargs)
+        self._redis_client = self.provider_class.from_url(
+            redis_url, **self.provider_kwargs
+        )
 
         if not hasattr(app, 'extensions'):
             app.extensions = {}

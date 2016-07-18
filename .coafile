@@ -9,7 +9,7 @@ bears =
   GitCommitBear,
 
 use_spaces = True
-max_line_length = 120
+max_line_length = 80
 max_lines_per_file = 1000
 
 ci_keywords = FIXME, pdb.set_trace()
