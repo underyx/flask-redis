@@ -3,11 +3,11 @@ Flask-Redis
 
 .. image:: https://api.travis-ci.org/underyx/flask-redis.svg?branch=master
    :target: https://travis-ci.org/underyx/flask-redis
-   :alt: Test Suite
+   :alt: Build Status
 
-.. image:: https://coveralls.io/repos/underyx/flask-redis/badge.svg
-   :target: https://coveralls.io/github/underyx/flask-redis
-   :alt: Test Coverage
+.. image:: https://codecov.io/gh/underyx/flask-redis/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/underyx/flask-redis
+   :alt: Coverage Status
 
 .. image:: https://landscape.io/github/underyx/flask-redis/master/landscape.svg
            ?style=flat
