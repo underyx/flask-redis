@@ -6,6 +6,6 @@ python:
  - 3.4
  - 3.5
 install:
- - pip install tox==2.3.1 tox-travis==0.4 coveralls
+ - pip install tox==2.3.1 tox-travis==0.4
 script: tox
-after_success: coveralls
+after_success: bash <(curl -s https://codecov.io/bash)
