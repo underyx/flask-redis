@@ -1,6 +1,10 @@
 Flask-Redis
 ===========
 
+.. image:: https://api.codacy.com/project/badge/Grade/8f8297c1a5f542d49429c4837165984f
+   :alt: Codacy Badge
+   :target: https://www.codacy.com/app/bence/flask-redis?utm_source=github.com&utm_medium=referral&utm_content=underyx/flask-redis&utm_campaign=badger
+
 .. image:: https://api.travis-ci.org/underyx/flask-redis.svg?branch=master
    :target: https://travis-ci.org/underyx/flask-redis
    :alt: Build Status
