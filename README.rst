@@ -61,7 +61,7 @@ To create the redis instance within your application
 .. code-block:: python
 
     from flask import Flask
-    from flask.ext.redis import FlaskRedis
+    from flask_redis import FlaskRedis
 
     app = Flask(__name__)
     redis_store = FlaskRedis(app)
@@ -71,7 +71,7 @@ or
 .. code-block:: python
 
     from flask import Flask
-    from flask.ext.redis import FlaskRedis
+    from flask_redis import FlaskRedis
 
     redis_store = FlaskRedis()
 
@@ -86,7 +86,7 @@ or perhaps you want to use the old, plain ``Redis`` class instead of
 .. code-block:: python
 
     from flask import Flask
-    from flask.ext.redis import FlaskRedis
+    from flask_redis import FlaskRedis
     from redis import StrictRedis
 
     app = Flask(__name__)
@@ -102,7 +102,7 @@ our own.
 
 
     from flask import Flask
-    from flask.ext.redis import FlaskRedis
+    from flask_redis import FlaskRedis
     from mockredis import MockRedis
 
 
@@ -144,7 +144,7 @@ For detailed instructions regarding the usage of the client, check the redis-py_
 documentation.
 
 Advanced features, such as Lua scripting, pipelines and callbacks are detailed
-within the projects README.
+within the redis-py_ README.
 
 Contribute
 ----------
