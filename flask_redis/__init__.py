@@ -60,3 +60,6 @@ class FlaskRedis(object):
 
     def delete(self, name):
         self.__delitem__(name)
+
+    def setex(self, name, value, time):
+        self._redis_client.setex(name, time, value)
