@@ -62,4 +62,4 @@ class FlaskRedis(object):
         self.__delitem__(name)
 
     def setex(self, name, value, time):
-        self._redis_client.setex(name, time, value)
+        self._redis_client.setex(name=name, time=time, value=value)
