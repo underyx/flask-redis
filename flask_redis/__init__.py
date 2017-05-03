@@ -57,3 +57,6 @@ class FlaskRedis(object):
 
     def __delitem__(self, name):
         del self._redis_client[name]
+
+    def delete(self, name):
+        self.__delitem__(name)
