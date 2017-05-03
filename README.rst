@@ -135,7 +135,7 @@ instance.
 
     @app.route('/')
     def index():
-        return redis_store.get('potato', 'Not Set')
+        return redis_store.set('potato', 'Not Set')
 
 **Protip:** The redis-py_ package currently holds the 'redis' namespace, so if
 you are looking to make use of it, your Redis object shouldn't be named 'redis'.
