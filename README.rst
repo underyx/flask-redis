@@ -94,9 +94,7 @@ or perhaps you want to use the old, plain ``Redis`` class instead of
 
 or maybe you want to use
 `mockredis <https://github.com/locationlabs/mockredis>`_ to make your unit
-tests simpler.  As of ``mockredis`` 2.9.0.10, it does not have the
-``from_url()`` classmethod that ``FlaskRedis`` depends on, so we wrap it and add
-our own.
+tests simpler.
 
 .. code-block:: python
 
@@ -106,17 +104,10 @@ our own.
     from mockredis import MockRedis
 
 
-
-    class MockRedisWrapper(MockRedis):
-        '''A wrapper to add the `from_url` classmethod'''
-        @classmethod
-        def from_url(cls, *args, **kwargs):
-            return cls()
-
     def create_app():
         app = Flask(__name__)
         if app.testing:
-            redis_store = FlaskRedis.from_custom_provider(MockRedisWrapper)
+            redis_store = FlaskRedis.from_custom_provider(MockRedis)
         else:
             redis_store = FlaskRedis()
         redis_store.init_app(app)
