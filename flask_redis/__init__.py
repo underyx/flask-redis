@@ -20,7 +20,7 @@ class FlaskRedis(object):
             self.init_app(app)
 
     @classmethod
-    def from_custom_provider(cls, provider, app=None, **kwargs):
+    def from_custom_provider(cls, provider, **kwargs):
         assert provider is not None, 'your custom provider is None, come on'
 
         # We never pass the app parameter here, so we can call init_app
@@ -28,8 +28,8 @@ class FlaskRedis(object):
         instance = cls(**kwargs)
 
         instance.provider_class = provider
-        if app is not None:
-            instance.init_app(app)
+        if kwargs.get('app') is not None:
+            instance.init_app(kwargs.get('app'))
         return instance
 
     def init_app(self, app, **kwargs):
