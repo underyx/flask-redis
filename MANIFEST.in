@@ -1,1 +1,10 @@
-include README.rst LICENSE HISTORY.rst
+include *.md
+include *.toml
+include *.txt
+include *.yaml
+
+include .coveragerc
+include .isort.cfg
+include tox.ini
+
+graft .circleci
