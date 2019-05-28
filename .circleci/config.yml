@@ -1,0 +1,41 @@
+# Docs: https://circleci.com/docs/2.0/language-python/
+version: 2
+jobs:
+  build:
+    docker:
+      - image: kiwicom/tox:3.7
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "requirements.txt" }}
+            - v1-dependencies-
+
+      - run:
+          name: Install Alpine dependencies
+          command: apk add --no-cache curl findutils git
+
+      - run:
+          name: Install Python dependencies
+          command: pip install coverage
+
+      - run:
+          name: Create tox environments
+          command: tox --notest
+
+      - save_cache:
+          paths:
+            - ./.tox
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+
+      - run:
+          name: Run tests with tox
+          command: tox
+
+      - run:
+          name: Report coverage to codecov
+          command: bash <(curl -s https://codecov.io/bash)

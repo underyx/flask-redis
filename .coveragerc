@@ -1,0 +1,12 @@
+[run]
+branch = True
+source =
+    flask_redis
+
+[paths]
+source =
+    flask_redis
+    .tox/*/lib/python*/site-packages/flask_redis
+
+[report]
+show_missing = True
