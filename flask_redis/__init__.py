@@ -1,7 +1,7 @@
 from .client import FlaskRedis
 
 
-__version__ = "0.4.0.dev0"
+__version__ = "0.4.0"
 
 __title__ = "flask-redis"
 __description__ = "A nice way to use Redis in your Flask app"
