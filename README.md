@@ -42,7 +42,7 @@ redis_client = FlaskRedis(app)
 or if you prefer, you can do it the other way around:
 
 ```python
-redis_client = FlaskRedis(app)
+redis_client = FlaskRedis()
 def create_app():
     app = Flask(__name__)
     redis_client.init_app(app)
