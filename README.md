@@ -49,9 +49,17 @@ def create_app():
     return app
 ```
 
+The `FlaskRedis` client here will pass its keyword arguments
+to the [`Redis` class](https://redis-py.readthedocs.io/en/latest/#redis.Redis)
+from the [`redis-py`](https://github.com/andymccurdy/redis-py) library,
+so all parameters from the `Redis` documentation page will work here as well
+— such as `socket_timeout` and `encoding`.
+
 ### Accessing Redis
 
-The redis client you created above from `FlaskRedis` acts just like a regular `Redis` instance from the [`redis-py`](https://github.com/andymccurdy/redis-py) library:
+Access is done by using `FlaskRedis` as if it was a
+[`Redis` class](https://redis-py.readthedocs.io/en/latest/#redis.Redis)
+as well:
 
 ```python
 from my_app import redis_client
