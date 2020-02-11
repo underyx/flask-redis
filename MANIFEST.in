@@ -3,8 +3,10 @@ include *.toml
 include *.txt
 include *.yaml
 
+include .bentoignore
 include .coveragerc
 include .isort.cfg
 include tox.ini
 
+graft .bento
 graft .circleci
