@@ -9,3 +9,5 @@ jobs:
     - name: Bento checks
       id: bento
       uses: returntocorp/bento-action@v1
+      with:
+        acceptTermsWithEmail: bence@underyx.me
