@@ -1,12 +1,12 @@
+name: bento
 on: [pull_request]
-
 jobs:
   bento:
     runs-on: ubuntu-latest
-    name: Bento checks
+    name: check
     steps:
     - uses: actions/checkout@v1
-    - name: Bento checks
+    - name: bento check
       id: bento
       uses: returntocorp/bento-action@v1
       with:
