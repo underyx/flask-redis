@@ -8,6 +8,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: bento check
       id: bento
-      uses: returntocorp/bento-action@v1
+      uses: returntocorp/bento-action@master
       with:
         acceptTermsWithEmail: bence@underyx.me
